@@ -1,0 +1,28 @@
+{
+  "name": "fortic5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:postcss": "NODE_ENV=production postcss src/main/resources/static/styles/style.tailwind.css -o target/classes/static/styles/style.build.tailwind.css",
+    "watch:postcss": "NODE_ENV=development postcss src/main/resources/static/styles/style.tailwind.css -o src/main/resources/static/styles/style.dev.tailwind.css -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/remunata/FORTIC5.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/remunata/FORTIC5/issues"
+  },
+  "homepage": "https://github.com/remunata/FORTIC5#readme",
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.2.7"
+  }
+}
