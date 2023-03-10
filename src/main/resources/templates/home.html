@@ -8,6 +8,48 @@
     <link rel="stylesheet" th:href="@{/styles/style.dev.tailwind.css}">
 </head>
 <body>
-    <h1 class="text-center text-2xl text-green-600">FORTIC5</h1>
+    <header class="relative w-full py-4 bg-cpt12">
+        <div class="mx-20 flex flex-row justify-around items-center">
+            <div>
+                <a class="cursor-pointer"><img class="h-8" src="/assets/images/logo-fortic5.png"></a>
+            </div>
+            <form action="xxxx" method="post">
+                <div class="bg-white rounded-full">
+                    <input class="rounded-full p-1 px-3 w-96 h-8 focus:outline-none" type="text" placeholder="Cari produk...">
+                    <button class="bg-cpt21 rounded-full p-1 px-7 h-8 font-medium text-white" type="submit">Cari</button>
+                </div>
+            </form>
+            <div class="flex flex-row items-center">
+                <a href="pesanan"><img class="h-8 mx-4" src="/assets/images/riwayat.png" alt="riwayat"></a>
+                <a href="chat"><img class="h-8 mx-4" src="/assets/images/chat.png" alt="chat"></a>
+                <a href="keranjang"><img class="h-8 mx-4 mr-8" src="/assets/images/keranjang.png" alt="keranjang"></a>
+                <a class="flex flex-row items-center" href="profile">
+                    <img class="h-10 mr-2 rounded-full" src="/assets/images/profile1.jpg" alt="profile-picture">
+                    <p>siapayach</p>
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="my-16 mx-32 grid grid-rows-1 gap-10">
+        <div>
+            <h1 class="text-cpt21 font-bold text-xl">Rekomendasi Produk</h1>
+        </div>
+        <div class="grid grid-cols-6 gap-10">
+            <div class="w-48 p-3 border border-cpt14 rounded-xl">
+                <div class="grid grid-rows-1 gap-2">
+                    <div class="bg-cpt24 h-44 rounded-xl"></div>
+                    <div class="mx-1 grid grid-rows-1 gap-2">
+                        <div>
+                            <a class="font-medium" href="home.html">Lorem Ipsum</a>
+                            <p class="font-medium">Rp. 500.000</p>
+                        </div>
+                        <div>
+                            <p>100 Terjual</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

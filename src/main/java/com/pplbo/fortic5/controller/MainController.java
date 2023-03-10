@@ -10,4 +10,9 @@ public class MainController {
     public String homePage() {
         return "home";
     }
+
+    @GetMapping("/product")
+    public String productDetail() {
+        return "product";
+    }
 }
