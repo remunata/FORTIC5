@@ -8,7 +8,7 @@ public class MainController {
 
     @GetMapping("/")
     public String homePage() {
-        return "home";
+        return "checkout";
     }
 
     @GetMapping("/product")
