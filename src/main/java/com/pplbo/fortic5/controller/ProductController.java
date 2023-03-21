@@ -2,44 +2,27 @@ package com.pplbo.fortic5.controller;
 
 import com.pplbo.fortic5.model.product.Product;
 import com.pplbo.fortic5.service.product.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-
-@RestController
-@RequestMapping("product")
+@Controller
+@RequestMapping("/product")
+@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
 
-    @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
-
-    @GetMapping("/")
-    public List<Product> getAll() {
-        return productService.findAll();
-    }
-
     @GetMapping("/{id}")
-    public Product getBook(@PathVariable Integer id) {
-        return findBookById(id);
-    }
-
-    private Product findBookById(Integer id) {
-
-        try {
-            return productService.findById(id);
-        } catch (NoSuchElementException exception) {
-            return null;
-        }
-    }
-
-    @PostMapping("/")
-    public Product save(@RequestBody Product product) {
-        return productService.save(product);
+    public String productDetail(
+            @PathVariable Integer id,
+            Model model
+    ) {
+        Product product = productService.findById(id);
+        model.addAttribute("product", product);
+        return "product";
     }
 }

@@ -19,20 +19,24 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
+    @Override
     public List<Product> findAll() {
         return productRepository.findAll();
     }
 
+    @Override
     public Product findById(Integer id) {
-        Optional<Product> productOptional = productRepository.findById(id);
-
-        if(productOptional.isPresent())
-            return productOptional.get();
-
-        throw new NoSuchElementException("Product ID not found");
+        return productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Product not found"));
     }
 
+    @Override
     public Product save(Product product) {
         return productRepository.save(product);
+    }
+
+    @Override
+    public void saveAll(List<Product> products) {
+        productRepository.saveAll(products);
     }
 }

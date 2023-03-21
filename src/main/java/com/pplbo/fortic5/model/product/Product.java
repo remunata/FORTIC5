@@ -1,21 +1,18 @@
 package com.pplbo.fortic5.model.product;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
-@Table(name = "products")
-@Getter
-@Setter
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "products")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Integer id;
 
     private String name;
@@ -23,4 +20,16 @@ public class Product {
     private Integer price;
 
     private String description;
+
+    private int rating;
+
+    private int stock;
+
+    private String brand;
+
+    @Enumerated(EnumType.STRING)
+    private Kondisi kondisi;
+//
+    @Enumerated(EnumType.STRING)
+    private Category category;
 }

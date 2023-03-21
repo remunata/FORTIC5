@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" th:href="@{/styles/style.dev.tailwind.css}">
+</head>
+<body>
+    <div class="flex justify-center items-center h-screen">
+        <form action="#" th:action="@{/auth/register}" method="post" th:object="${registerRequest}">
+            <label class="inline-block w-40 m-3" for="username">Username:</label>
+            <input class="border p-1" type="text" id="username" th:field="*{username}"> <br>
+            <label class="inline-block w-40 m-3" for="email">E-mail:</label>
+            <input class="border p-1" type="email" id="email" th:field="*{email}"> <br>
+            <label class="inline-block w-40 m-3" for="password">Password:</label>
+            <input class="border p-1" type="password" id="password" th:field="*{password}"> <br>
+            <label class="inline-block w-40 m-3" for="role">Role:</label>
+            <select class="border p-1" name="role" id="role" th:field="*{role}">
+                <option value="CUSTOMER">Pembeli</option>
+                <option value="SELLER">Penjual</option>
+            </select> <br>
+            <label class="inline-block w-40 m-3" for="address">Address:</label>
+            <input class="border p-1" type="text" id="address" th:field="*{address}"> <br>
+            <button class="inline-block m-3 bg-cpt12 duration-150 hover:bg-cpt13 hover:text-white p-3 rounded-lg" type="submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>
