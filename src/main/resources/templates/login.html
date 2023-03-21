@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	lang="en"
+>
+	<head>
+		<meta charset="UTF-8" />
+		<title>FORTIC5</title>
+		<link rel="stylesheet" th:href="@{/styles/style.dev.tailwind.css}" />
+		<style>
+			body {
+				background-image: url("/assets/images/background.png");
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-attachment: fixed;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<!-- <body>
+
+        <div class="container mx-auto px-24">
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <img class="object-none" src="/assets/images/user.png" alt="user">
+                <h1 class="text-black font-bold text-xl">Login</h1>
+                <div class="flex my-10 mb-4">
+                    <input
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="username" type="text" placeholder="Username">
+                </div>
+                <div class="flex my-10 mb-6">
+                    <input
+                        class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                        id="password" type="password" placeholder="Password">
+                </div>
+            </form>
+            
+        <div class="gap-5 my-10 mx-10 w-full max-w-xs">
+            <div class="my-10 mx-10 bg-cpt12 rounded px-16 pt-16 pb-16 mb-4">
+                <img src="/assets/images/logo-fortic5.png" alt="logo">
+                <h1>Aplikasi Belajar Software,</h1>
+                <h1>Accessories, dan Komputer</h1>
+                <h1>Online</h1>
+            </div>
+        </div>
+
+    </div>
+</body> -->
+
+	<!-- <body>
+    <div class="flex flex-row gap-10 mt-20 justify-center">
+        <div class="w-3/5 h-44">
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 w-3/5 mx-20">
+                <h1 class="text-black font-bold text-xl">Login</h1>
+                <div class="flex gap-3 my-10 mb-4">
+                    <img class="object-none" src="/assets/images/user.png" alt="user">
+                    <input
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="username" type="text" placeholder="Username">
+                </div>
+                <div class="flex gap-3 my-10 mb-6">
+                    <img class="object-none static" src="/assets/images/password.png" alt="pass">
+                    <input
+                        class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                        id="password" type="password" placeholder="Password">
+                </div>
+                <button type="button"
+                    class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Login</button>
+            </form>
+        </div>
+        <div class="w-3/5 h-3/6">
+            <div class="flex-initial bg-cpt12 w-3/5 mx-20">
+                <img src="/assets/images/logo-fortic5.png" alt="logo">
+                <h1>Aplikasi Belajar Software,</h1>
+                <h1>Accessories, dan Komputer</h1>
+                <h1>Online</h1>
+            </div>
+
+        </div>
+    </div>
+    <div class="flex-initial w-64 ...">
+
+
+    </div>
+</body> -->
+
+	<body>
+		<div class="grid grid-cols-2 gap-4">
+			<div class="flex justify-evenly h-screen items-center">
+				<form
+					class="bg-white shadow-md mt-16 px-8 pt-6 w-4/5 pb-8 h-96 " style="border-radius: 0px 100px 0px 100px;border: 5px solid #3C6255;"
+				>
+					<h1 class="text-black font-semibold text-3xl pl-14">Login</h1>
+					<div class="flex gap-3 my-10 mb-4 justify-center">
+						<img class="object-none" src="/assets/images/user.png" alt="user" />
+						<input
+							class="appearance-none border-b border-gray-300 w-4/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+							id="username"
+							type="text"
+							placeholder="Username"
+						/>
+					</div>
+					<div class="flex gap-3 my-10 mb-4 justify-center">
+						<img
+							class="object-none"
+							src="/assets/images/password.png"
+							alt="pass"
+						/>
+						<input
+							class="appearance-none border-b border-gray-300 w-4/6 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+							id="password"
+							type="password"
+							placeholder="******"
+						/>
+					</div>
+					<div class="flex justify-center">
+						<button
+							type="button"
+							class="rounded-full border border-gray-300 bg-cpt21 py-1.5 px-2.5 text-white font-semibold text-gray-900 shadow-sm hover:bg-gray-50 w-96"
+						>
+							Login
+						</button>
+					</div>
+                </br>
+					<hr style="border: 2px solid #245953"/>
+                <!-- </br> -->
+                    <h4 class="py-6 px-36">
+                        Belum punya akun? <a style="color: #245953" href="#"><u>Daftar</u></a>
+                    </h4>
+				</form>
+			</div>
+			<div class="flex-initial">
+				<div class="bg-cpt12 px-8 pt-16 pb-16 my-16 mx-10 h-screen" style="border-radius: 0px 100px 0px 100px;">
+					<div class="text-center py-12">
+						<img
+							style="display: block; margin: auto; width: 400px;"
+							src="/assets/images/logo-fortic5.png"
+							alt="logo"
+						/>
+						<h1 class="my-16" style="font-size: 2em">Aplikasi Belajar Software,</h1>
+						<h1 class="my-16" style="font-size: 2em">Accessories, dan Komputer</h1>
+						<h1 class="my-16" style="font-size: 2em">Online</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -37,3 +37,5 @@ node_modules/
 
 ### TailWind CSS ###
 /src/main/resources/static/styles/style.dev.tailwind.css
+
+.metadata/
