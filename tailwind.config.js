@@ -15,6 +15,7 @@ module.exports = {
             'cpt24': '#EAE7B1',
             'white': '#FFFFFF',
             'black': '#0B0E0A',
+            'error': '#C62828',
         },
         fontFamily: {
             'primary' : 'Montserrat, sans-serif',

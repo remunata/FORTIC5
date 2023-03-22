@@ -1,6 +1,7 @@
 package com.pplbo.fortic5.controller;
 
 import com.pplbo.fortic5.model.product.Product;
+import com.pplbo.fortic5.model.product.ProductResponse;
 import com.pplbo.fortic5.model.user.User;
 import com.pplbo.fortic5.service.product.ProductService;
 import com.pplbo.fortic5.service.user.UserService;
@@ -23,8 +24,11 @@ public class MainController {
     public String homePage(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
-        List<Product> products = productService.findAll();
-        model.addAttribute("products", products);
+        List<ProductResponse> productResponses = productService.findAll()
+                        .stream()
+                        .map(ProductResponse::new)
+                        .toList();
+        model.addAttribute("productResponses", productResponses);
         return "home";
     }
 

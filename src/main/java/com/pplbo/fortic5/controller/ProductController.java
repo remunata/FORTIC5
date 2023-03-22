@@ -1,6 +1,7 @@
 package com.pplbo.fortic5.controller;
 
 import com.pplbo.fortic5.model.product.Product;
+import com.pplbo.fortic5.model.product.ProductResponse;
 import com.pplbo.fortic5.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ public class ProductController {
             @PathVariable Integer id,
             Model model
     ) {
-        Product product = productService.findById(id);
+        ProductResponse product = new ProductResponse(productService.findById(id));
         model.addAttribute("product", product);
         return "product";
     }

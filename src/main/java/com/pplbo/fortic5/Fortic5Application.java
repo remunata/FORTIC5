@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class Fortic5Application implements CommandLineRunner {
 
 	private final UserService userService;
 	private final ProductService productService;
+
+	private final PasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Fortic5Application.class, args);
@@ -32,7 +36,7 @@ public class Fortic5Application implements CommandLineRunner {
 				.fullName("Mahendra Dinata")
 				.username("remunata")
 				.email("remdinata@gmail.com")
-				.password("qwerty123")
+				.password(passwordEncoder.encode("qwerty123"))
 				.role(Role.CUSTOMER)
 				.address("Komplek Persada")
 				.build();
@@ -41,7 +45,7 @@ public class Fortic5Application implements CommandLineRunner {
 				.fullName("Widya Fitriani")
 				.username("reiiye")
 				.email("wdyftr@gmail.com")
-				.password("qwerty123")
+				.password(passwordEncoder.encode("qwerty123"))
 				.role(Role.SELLER)
 				.address("Kertapati")
 				.build();
