@@ -1,9 +1,11 @@
 package com.pplbo.fortic5.service.user;
 
+import com.pplbo.fortic5.model.request.RegisterRequest;
 import com.pplbo.fortic5.model.user.User;
 import com.pplbo.fortic5.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,14 +13,11 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-
-    @Autowired
-    public UserServiceImpl(UserRepository customerRepository) {
-        this.userRepository = customerRepository;
-    }
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User findById(Integer id) {
@@ -44,5 +43,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveAll(List<User> users) {
         userRepository.saveAll(users);
+    }
+
+    @Override
+    public User register(RegisterRequest request) {
+        User user = User.builder()
+                .fullName(null)
+                .username(request.getUsername())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(request.getRole())
+                .address(request.getAddress())
+                .build();
+
+        return save(user);
     }
 }

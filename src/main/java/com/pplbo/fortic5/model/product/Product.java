@@ -29,7 +29,7 @@ public class Product {
 
     @Enumerated(EnumType.STRING)
     private Kondisi kondisi;
-//
+
     @Enumerated(EnumType.STRING)
     private Category category;
 }

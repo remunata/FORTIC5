@@ -1,7 +1,6 @@
 package com.pplbo.fortic5.controller;
 
-import com.pplbo.fortic5.model.product.Product;
-import com.pplbo.fortic5.model.product.ProductResponse;
+import com.pplbo.fortic5.model.response.ProductResponse;
 import com.pplbo.fortic5.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

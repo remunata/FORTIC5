@@ -1,4 +1,6 @@
-package com.pplbo.fortic5.model.product;
+package com.pplbo.fortic5.model.response;
+
+import com.pplbo.fortic5.model.product.Product;
 
 import java.io.IOException;
 import java.nio.file.Files;
