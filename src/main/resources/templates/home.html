@@ -46,7 +46,7 @@
                         <div class="mx-1 grid grid-rows-1 gap-2">
                             <div>
                                 <a class="font-medium" th:href="|/product/${response.product.id}|" th:text="${response.product.name}"></a>
-                                <p class="font-medium text-cpt13" th:text="Rp. + ${response.product.price}"></p>
+                                <p class="font-medium text-cpt13" th:text="${response.getPriceFormatted()}"></p>
                             </div>
                             <div>
                                 <p>100 Terjual</p>

@@ -9,6 +9,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.pplbo.fortic5.utilities.NumberFormatter.getCurrencyFormat;
+
 public class ProductResponse {
 
     private static final String IMAGE_PATH = System.getProperty("user.dir")
@@ -35,5 +37,9 @@ public class ProductResponse {
 
     public String getMainImage() {
         return paths.get(0).toString().substring(48);
+    }
+
+    public String getPriceFormatted() {
+        return getCurrencyFormat(product.getPrice());
     }
 }
