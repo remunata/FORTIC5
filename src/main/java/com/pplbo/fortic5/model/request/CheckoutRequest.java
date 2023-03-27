@@ -1,24 +1,23 @@
 package com.pplbo.fortic5.model.request;
 
-import com.pplbo.fortic5.model.user.Role;
+import com.pplbo.fortic5.model.product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.Map;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class CheckoutRequest {
 
-    private String username;
+    private Integer PID;
 
-    private String email;
+    private Integer quantity = 1;
 
-    private String password;
-
-    private Role role;
-
-    private String address;
+    private String note;
 }

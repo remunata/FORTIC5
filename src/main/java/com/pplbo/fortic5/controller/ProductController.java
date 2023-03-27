@@ -1,14 +1,12 @@
 package com.pplbo.fortic5.controller;
 
+import com.pplbo.fortic5.model.request.CheckoutRequest;
 import com.pplbo.fortic5.model.response.ProductResponse;
 import com.pplbo.fortic5.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/product")
@@ -22,18 +20,14 @@ public class ProductController {
             @PathVariable Integer id,
             Model model
     ) {
-        ProductResponse product = new ProductResponse(productService.findById(id));
-        model.addAttribute("product", product);
+        ProductResponse productResponse = new ProductResponse(productService.findById(id));
+        model.addAttribute("product", productResponse);
+        model.addAttribute("checkoutRequest", new CheckoutRequest());
         return "product";
     }
 
-    @PostMapping("/{id}/buy")
-    public String checkoutProduct(
-            @PathVariable Integer id,
-            Model model
-    ) {
-        ProductResponse product = new ProductResponse(productService.findById(id));
-        model.addAttribute("product", product);
-        return "checkout";
+    @GetMapping("/add")
+    public String addProductForm() {
+        return "add";
     }
 }

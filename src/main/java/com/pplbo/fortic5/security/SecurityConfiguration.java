@@ -18,6 +18,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
+    private final LoginSuccessHandler loginSuccessHandler;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -26,13 +28,14 @@ public class SecurityConfiguration {
                         .requestMatchers("/styles/**").permitAll()
                         .requestMatchers("/assets/images/**").permitAll()
                         .requestMatchers("/register").permitAll()
+                        .requestMatchers("/").hasAnyAuthority("CUSTOMER")
+                        .requestMatchers("/dashboard").hasAnyAuthority("SELLER")
                         .anyRequest().authenticated()
                 )
                 .formLogin((login) -> login
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/")
-                        .failureUrl("/login?error")
+                        .successHandler(loginSuccessHandler)
                         .permitAll()
                 )
                 .logout((logout) -> logout

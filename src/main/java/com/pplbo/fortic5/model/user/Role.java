@@ -1,8 +1,8 @@
 package com.pplbo.fortic5.model.user;
 
-import java.awt.*;
+import org.springframework.security.core.GrantedAuthority;
 
-public enum Role {
+public enum Role implements GrantedAuthority {
     CUSTOMER("Customer"),
     SELLER("Seller");
 
@@ -14,5 +14,10 @@ public enum Role {
 
     public String getDisplayValue() {
         return displayValue;
+    }
+
+    @Override
+    public String getAuthority() {
+        return name();
     }
 }

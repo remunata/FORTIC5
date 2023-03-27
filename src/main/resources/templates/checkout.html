@@ -6,11 +6,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Halaman Checkout</title>
+  <title>Checkout</title>
   <link rel="stylesheet" th:href="@{/styles/style.dev.tailwind.css}">
 </head>
 <body class="font-secondary">
-  <div class="relative w-full px-20 py-10">
+  <div class="relative w-full px-20 py-10" th:with="total=${product.product.price * checkoutRequest.quantity}">
     <div>
       <span>
         <a class="flex flex-row items-center font-bold cursor-pointer" onclick="history.go(-1)">
@@ -30,16 +30,16 @@
           <h2 class="font-bold text-xl">Alamat Pengiriman</h2>
         </div>
         <div class="border-b-2 border-black/25 pb-1.5 mb-1.5">
-          <p>Reiie</p>
-          <p>email blabla@blabla</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p th:text="${user.fullName}">Reiie</p>
+          <p th:text="${user.email}">email blabla@blabla</p>
+          <p th:text="${user.address}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
         <div class="border-b-2 border-black/25 pb-1.5 mb-1.5 mt-8">
           <h2 class="font-bold text-xl">Detail Pesanan</h2>
         </div>
         <div class="border-b-2 border-black/25 pb-1.5 mb-1.5">
-          <h3 class="font-medium text-md">Fluffyreiie</h3>
-          <p class="text-sm">Kota Bekasi</p>
+          <h3 class="font-medium text-md" th:text="${product.product.seller.fullName}">Fluffyreiie</h3>
+          <p class="text-sm" th:text="${product.product.seller.address}">Kota Bekasi</p>
         </div>
         <table class="w-full">
           <thead>
@@ -53,12 +53,12 @@
           <tbody class="" th:object="${product}">
             <tr class="border-b-2 border-black/25">
               <td class="flex flex-row items-center py-2">
-                <img class="h-16 object-cover mr-3" th:src="*{getMainImage()}">
-                <p th:text="*{product.name}"></p>
+                <img class="h-16 object-cover mr-3" th:src="*{mainImage}">
+                <p th:text="*{name}"></p>
               </td>
-              <td class="text-center">1</td>
-              <td class="text-center" th:text="*{getPriceFormatted()}"></td>
-              <td class="text-center" th:text="*{getPriceFormatted()}"></td>
+              <td class="text-center" th:text="${checkoutRequest.quantity}">1</td>
+              <td class="text-center" th:text="*{price}"></td>
+              <td class="text-center" th:text="|Rp ${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA')}|"></td>
             </tr>
           </tbody>
         </table>
@@ -100,19 +100,26 @@
         </div>
       </div>
       <div class="w-80 mt-20">
-        <form method="POST" th:action="@{|/product/${product.product.id}/buy|}">
+        <form method="POST" th:action="@{/checkout/confirm}" th:object="${checkoutRequest}">
           <div class="w-full h-auto border border-black/25 rounded-xl grid grid-cols-1 px-4 py-3 gap-y-2.5">
             <div class="border-b-2 border-black/25 pb-3 mb-2">
               <h2 class="font-bold text-lg">Summary</h2>
             </div>
-            <div class="flex flex-row justify-between my-1.5">
-              <p class="text-sm font-medium">Total Product</p>
-              <p class="font-medium text-sm">1</p>
+            <div th:if="${checkoutRequest.note != ''}">
+              <p class="text-sm font-bold">Catatan</p>
+              <p class="text-sm" th:text="${checkoutRequest.note}"></p>
+            </div>
+            <div class="flex flex-row justify-between mt-3">
+              <p class="text-sm font-bold">Total Product</p>
+              <p class="font=bold text-sm" th:text="${checkoutRequest.quantity}">1</p>
             </div>
             <div class="flex flex-row justify-between mb-2">
               <p class="text-md font-bold">Total</p>
-              <p class="text-md font-bold" th:text="${product.getPriceFormatted()}"></p>
+              <p class="text-md font-bold" th:text="|Rp ${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA')}|"></p>
             </div>
+            <input type="hidden" th:field="*{PID}">
+            <input type="hidden" th:field="*{quantity}">
+            <input type="hidden" th:field="*{note}">
             <input type="submit" name="checkout" value="Checkout" class="text-md font-bold rounded-md bg-cpt12 py-0.5 cursor-pointer shadow-md duration-150 hover:bg-cpt13 hover:text-white hover:shadow-none">
           </div>
         </form>

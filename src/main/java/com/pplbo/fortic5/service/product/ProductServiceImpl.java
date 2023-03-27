@@ -1,6 +1,7 @@
 package com.pplbo.fortic5.service.product;
 
 import com.pplbo.fortic5.model.product.Product;
+import com.pplbo.fortic5.model.user.User;
 import com.pplbo.fortic5.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

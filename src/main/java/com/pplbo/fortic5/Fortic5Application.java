@@ -21,7 +21,6 @@ public class Fortic5Application implements CommandLineRunner {
 
 	private final UserService userService;
 	private final ProductService productService;
-
 	private final PasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
@@ -49,32 +48,50 @@ public class Fortic5Application implements CommandLineRunner {
 				.address("Kertapati")
 				.build();
 
+		userService.save(remunata);
+		reiiye = userService.save(reiiye);
+
 		var mouseLogitech = Product.builder()
 				.name("Mouse Logitech Gaming")
 				.price(1500000)
-				.description("Mouse gaming dengan latensi paling rendah")
+				.description("""
+						Pilih koneksi wireless yang andal sekarang juga dengan Logitech M171 Wireless Mouse.
+						Mouse komputer yang harganya terjangkau dan mudah digunakan ini memiliki
+						daya tahan baterai 12 bulan(1) dan kompatibel dengan sistem operasi
+						Windows, macOS, Linux, ChromeOS, ipadOS, dan Android.
+						""")
 				.rating(5)
 				.stock(89)
 				.brand("Logitech")
 				.kondisi(Kondisi.BARU)
 				.category(Category.AKSESORIS)
+				.seller(reiiye)
 				.build();
 
 		var keyboard = Product.builder()
 				.name("Keychron K2 RGB Backlight")
 				.price(1285000)
-				.description("INI SUDAH K2 VERSION 2 ... BUKAN HOT-SWAPPBLE, switch TIDAK bisa Dicopot")
+				.description("""
+						INI SUDAH K2 VERSION 2 ... BUKAN HOT-SWAPPBLE, switch TIDAK bisa Dicopot
+						      
+						Bisa dipake di MacOS, Windows, Linux, Android, IOS
+						Bisa koneksi bluetooth ke 3 perangkat bergantian
+						Klo pake Bluetooth MOBO sering bermasalah, jadi beli BT Receiver terpisah ya
+						      
+						What's new on K2v2
+						Bluetooth 5.1
+						Inclined bottom frame.
+						Added dedicated caps lock indicator light
+						""")
 				.rating(4)
 				.stock(31)
 				.brand("Keychron")
 				.kondisi(Kondisi.BARU)
 				.category(Category.AKSESORIS)
+				.seller(reiiye)
 				.build();
 
-		List<User> users = List.of(remunata, reiiye);
 		List<Product> products = List.of(mouseLogitech, keyboard);
-
-		userService.saveAll(users);
 		productService.saveAll(products);
 	}
 }

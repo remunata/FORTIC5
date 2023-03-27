@@ -1,14 +1,15 @@
 package com.pplbo.fortic5.model.user;
 
+import com.pplbo.fortic5.model.order.Order;
+import com.pplbo.fortic5.model.product.Product;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -32,14 +33,24 @@ public class User implements UserDetails {
 
     private String password;
 
+    private String address;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private String address;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "seller")
+    private List<Product> products;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders;
+
+    public boolean hasRole(Role role) {
+        return this.role == role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(role);
     }
 
     @Override

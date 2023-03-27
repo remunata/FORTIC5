@@ -1,7 +1,12 @@
 package com.pplbo.fortic5.model.product;
 
+import com.pplbo.fortic5.model.order.Order;
+import com.pplbo.fortic5.model.user.User;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.*;
+
+import java.util.Set;
 
 @Data
 @Builder
@@ -17,13 +22,14 @@ public class Product {
 
     private String name;
 
-    private double price;
+    private Integer price;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    private int rating;
+    private Integer rating;
 
-    private int stock;
+    private Integer stock;
 
     private String brand;
 
@@ -32,4 +38,11 @@ public class Product {
 
     @Enumerated(EnumType.STRING)
     private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id")
+    private User seller;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+    private Set<Order> orders;
 }

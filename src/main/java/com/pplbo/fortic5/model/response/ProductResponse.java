@@ -1,5 +1,7 @@
 package com.pplbo.fortic5.model.response;
 
+import com.pplbo.fortic5.model.product.Category;
+import com.pplbo.fortic5.model.product.Kondisi;
 import com.pplbo.fortic5.model.product.Product;
 
 import java.io.IOException;
@@ -39,7 +41,43 @@ public class ProductResponse {
         return paths.get(0).toString().substring(48);
     }
 
-    public String getPriceFormatted() {
+    public Integer getId() {
+        return product.getId();
+    }
+
+    public String getName() {
+        return product.getName();
+    }
+
+    public String getPrice() {
         return getCurrencyFormat(product.getPrice());
+    }
+
+    public String getDescription() {
+        return product.getDescription();
+    }
+
+    public Integer getRating() {
+        return product.getRating();
+    }
+
+    public Integer getStock() {
+        return product.getStock();
+    }
+
+    public String getBrand() {
+        return product.getBrand();
+    }
+
+    public Kondisi getKondisi() {
+        return product.getKondisi();
+    }
+
+    public Category getCategory() {
+        return product.getCategory();
+    }
+
+    public Integer getTotalOrders() {
+        return product.getOrders().size();
     }
 }
