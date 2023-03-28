@@ -93,5 +93,6 @@ public class Fortic5Application implements CommandLineRunner {
 
 		List<Product> products = List.of(mouseLogitech, keyboard);
 		productService.saveAll(products);
+
 	}
 }

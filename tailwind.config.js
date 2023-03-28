@@ -29,7 +29,7 @@ module.exports = {
         },
         extend: {
             gridTemplateColumns: {
-                'product': 'repeat(auto-fill, minmax(70px, 1fr)',
+                'product': 'repeat(auto-fill, minmax(10rem, 1fr))',
             },
         },
     },

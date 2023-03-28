@@ -14,4 +14,6 @@ public interface ProductService {
     Product save(Product product);
 
     void saveAll(List<Product> products);
+
+    List<Product> findBySeller(User user);
 }

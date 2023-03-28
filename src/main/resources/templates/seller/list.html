@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm</title>
+    <link rel="stylesheet" th:href="@{/styles/style.dev.tailwind.css}">
+</head>
+<body>
+<header class="relative w-full py-4 bg-cpt12">
+    <div class="mx-20 flex flex-row justify-around items-center">
+        <div>
+            <a class="cursor-pointer" th:href="@{/dashboard}"><img class="h-8" th:src="@{/assets/images/logo.svg}"></a>
+        </div>
+        <form action="xxxx" method="post">
+            <div class="bg-white rounded-full">
+                <input class="rounded-full p-1 px-3 w-96 h-8 focus:outline-none" type="text" placeholder="Cari produk...">
+                <button class="bg-cpt21 rounded-full p-1 px-7 h-8 font-medium text-white" type="submit">Cari</button>
+            </div>
+        </form>
+        <div class="flex flex-row items-center">
+            <a th:href="@{/history}"><img class="h-8 mx-4" th:src="@{/assets/images/history.svg}" alt="history"></a>
+            <a th:href="@{/chat}"><img class="h-8 mx-4" th:src="@{/assets/images/chat.svg}" alt="chat"></a>
+            <a th:href="@{/dashboard}"><img class="h-8 mx-4 mr-8" th:src="@{/assets/images/product.svg}" alt="product"></a>
+            <a class="flex flex-row items-center" th:href="@{/logout}">
+                    <span class="h-10 mr-2 flex items-center">
+                        <img class="object-fill h-6" th:src="@{/assets/images/profile.svg}" alt="profile-picture">
+                    </span>
+                <p th:text="${user.username}"></p>
+            </a>
+        </div>
+    </div>
+</header>
+<div class="relative w-full px-36 py-10">
+    <div>
+      <span>
+        <a class="flex flex-row items-center font-bold cursor-pointer" onclick="history.go(-1)">
+          <img class="h-6 mr-3" th:src="@{/assets/images/left-arrow.svg}" alt="back">
+          Kembali
+        </a>
+      </span>
+    </div>
+    <div class="mt-10">
+        <h1 class="text-4xl font-bold">Pesanan</h1>
+    </div>
+    <div class="mt-5 border-b-2 border-black/25 py-1 mb-1">
+        <h2 class="text-xl font-bold">Menunggu Konfirmasi</h2>
+    </div>
+    <table class="w-full">
+        <thead>
+        <tr class="border-b-2 border-black/25">
+            <th class="w-3/12 pb-1.5 text-left">Product</th>
+            <th class="w-2/12">Amount</th>
+            <th class="w-2/12">Price</th>
+            <th class="w-2/12">Total</th>
+            <th class="w-2/12">Note</th>
+            <th class="w-1/12">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="order : ${ordersWaiting}">
+                <tr class="border-b-2 border-black/25" th:with="total = ${order.order.quantity * order.product.product.price}">
+                    <td class="flex flex-row items-center py-2">
+                        <img class="h-16 object-cover mr-3" th:src="${order.product.mainImage}">
+                        <p th:text="${order.product.name}"></p>
+                    </td>
+                    <td class="text-center" th:text="${order.order.quantity}">1</td>
+                    <td class="text-center" th:text="${order.product.price}"></td>
+                    <td class="text-center" th:text="|Rp ${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA')}|"></td>
+                    <td th:text="${order.order.note}"></td>
+                    <td class="text-center">
+                        <input type="button" value="Confirm" class="mb-2 text-md font-medium rounded-md bg-cpt12 py-0.5 cursor-pointer shadow-md duration-150 hover:bg-cpt13 hover:text-white hover:shadow-none">
+                        <input type="button" value="Cancel">
+                    </td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

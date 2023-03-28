@@ -22,7 +22,7 @@
     <div class="flex flex-row items-center">
       <a th:href="@{/history}"><img class="h-8 mx-4" th:src="@{/assets/images/history.svg}" alt="history"></a>
       <a th:href="@{/chat}"><img class="h-8 mx-4" th:src="@{/assets/images/chat.svg}" alt="chat"></a>
-      <a th:href="@{/dashboard}"><img class="h-8 mx-4 mr-8" th:src="@{/assets/images/product.svg}" alt="product"></a>
+      <a th:href="@{/dashboard/order}"><img class="h-8 mx-4 mr-8" th:src="@{/assets/images/product.svg}" alt="product"></a>
       <a class="flex flex-row items-center" th:href="@{/logout}">
                     <span class="h-10 mr-2 flex items-center">
                         <img class="object-fill h-6" th:src="@{/assets/images/profile.svg}" alt="profile-picture">
@@ -42,7 +42,7 @@
       <h2 class="ml-2 font-bold text-cpt21 text-lg">Tambah Produk</h2>
     </a>
   </div>
-  <div class="grid grid-cols-8 gap-10">
+  <div class="grid grid-cols-product gap-10">
     <th:block th:each="product : ${products}">
       <div class="w-48 p-3 border border-cpt14 rounded-xl hover:shadow-lg duration-100">
         <div class="grid grid-rows-1 gap-2">

@@ -41,7 +41,7 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "seller")
     private List<Product> products;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
     private Set<Order> orders;
 
     public boolean hasRole(Role role) {
