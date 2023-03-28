@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cart</title>
+  <link rel="stylesheet" th:href="@{/styles/style.dev.tailwind.css}">
+  <script type="text/javascript" th:src="@{/scripts/main.js}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+<body>
+<div class="relative w-full px-20 pt-10">
+  <div class="w-auto">
+    <a class="flex flex-row items-center font-bold cursor-pointer" onclick="history.go(-1)">
+      <img class="h-6 mr-3" th:src="@{/assets/images/left-arrow.svg}" alt="left-arrow">
+      Kembali
+    </a>
+  </div>
+  <div class="my-10">
+    <div>
+
+    </div>
+    <div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -38,7 +38,8 @@ public class ProductResponse {
     }
 
     public String getMainImage() {
-        return paths.get(0).toString().substring(48);
+        String result = paths.get(0).toString().substring(System.getProperty("user.dir").length() + 26);
+        return result;
     }
 
     public Integer getId() {
