@@ -35,7 +35,7 @@ public class AuthController {
     ) {
 
         try {
-            User existingUser = userService.findByUsername(request.getUsername());
+            userService.findByUsername(request.getUsername());
             model.addAttribute("error", "username telah digunakan");
             return "register";
         } catch (UsernameNotFoundException exception) {

@@ -37,7 +37,7 @@
     <h1 class="text-cpt21 font-bold text-xl">Produk Saya</h1>
   </div>
   <div class="grid justify-items-end">
-    <a class="flex flex-row items-center" th:href="@{/add}">
+    <a class="flex flex-row items-center" th:href="@{/dashboard/add}">
       <img class="h-8" th:src="@{/assets/images/plus.svg}" th:alt="plus">
       <h2 class="ml-2 font-bold text-cpt21 text-lg">Tambah Produk</h2>
     </a>
@@ -56,7 +56,7 @@
             </div>
             <div class="flex flex-row justify-between items-center">
               <p th:text="|${product.getTotalOrders()} Terjual|">100 Terjual</p>
-              <a th:href="@{/edit}">
+              <a th:href="|/dashboard/edit/${product.id}|">
                 <img class="h-8" th:src="@{/assets/images/edit.svg}" th:alt="edit">
               </a>
             </div>
