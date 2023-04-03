@@ -46,8 +46,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(RegisterRequest request) {
+
+        if (userRepository.findByUsername(request.getUsername()).isPresent())
+            throw new IllegalArgumentException("Username telah digunakan");
+
+        if (userRepository.findByEmail(request.getEmail()).isPresent())
+            throw new IllegalArgumentException("Email telah digunakan");
+
         User user = User.builder()
-                .fullName(null)
+                .fullName(String.format("%s %s", request.getFirstName(), request.getLastName()))
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))

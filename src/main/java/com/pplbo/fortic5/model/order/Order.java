@@ -3,7 +3,6 @@ package com.pplbo.fortic5.model.order;
 import com.pplbo.fortic5.model.product.Product;
 import com.pplbo.fortic5.model.user.User;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +16,6 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Transactional
 public class Order {
 
     @Id

@@ -1,12 +1,11 @@
 package com.pplbo.fortic5.model.product;
 
-import com.pplbo.fortic5.model.order.Order;
 import com.pplbo.fortic5.model.user.User;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
-import lombok.*;
-
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
@@ -33,6 +32,8 @@ public class Product {
 
     private String brand;
 
+    private String imageExtension;
+
     @Enumerated(EnumType.STRING)
     private Kondisi kondisi;
 
@@ -42,7 +43,4 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private User seller;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
-    private Set<Order> orders;
 }

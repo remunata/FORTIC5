@@ -1,6 +1,8 @@
 package com.pplbo.fortic5.service.product;
 
+import com.pplbo.fortic5.model.product.Kondisi;
 import com.pplbo.fortic5.model.product.Product;
+import com.pplbo.fortic5.model.request.ProductRequest;
 import com.pplbo.fortic5.model.user.User;
 import com.pplbo.fortic5.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -32,7 +33,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product save(Product product) {
+    public Product save(ProductRequest request, User user) {
+        var product = Product.builder()
+                .name(request.getName())
+                .description(request.getDescription())
+                .category(request.getCategory())
+                .price(request.getPrice())
+                .seller(user)
+                .brand("Secret")
+                .stock(512)
+                .rating(5)
+                .kondisi(Kondisi.BARU)
+                .imageExtension(request.getImage().getOriginalFilename()
+                        .substring(request.getImage().getOriginalFilename().lastIndexOf(".")))
+                .build();
+
         return productRepository.save(product);
     }
 

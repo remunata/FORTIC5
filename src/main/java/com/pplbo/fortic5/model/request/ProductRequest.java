@@ -1,10 +1,7 @@
 package com.pplbo.fortic5.model.request;
 
 import com.pplbo.fortic5.model.product.Category;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
@@ -13,13 +10,18 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 public class ProductRequest {
 
+    @NonNull
     private String name;
 
+    @NonNull
     private String description;
 
+    @NonNull
     private Category category;
 
-    private MultipartFile images;
+    @NonNull
+    private MultipartFile image;
 
+    @NonNull
     private Integer price;
 }

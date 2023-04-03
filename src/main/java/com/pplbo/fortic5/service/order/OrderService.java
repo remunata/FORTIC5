@@ -1,6 +1,7 @@
 package com.pplbo.fortic5.service.order;
 
 import com.pplbo.fortic5.model.order.Order;
+import com.pplbo.fortic5.model.order.OrderStatus;
 import com.pplbo.fortic5.model.request.CheckoutRequest;
 import com.pplbo.fortic5.model.user.User;
 
@@ -13,4 +14,8 @@ public interface OrderService {
     Order findById(Integer id);
 
     List<Order> findOrderWaiting(User user);
+
+    List<Order> findOrderConfirmed(User user);
+
+    void updateStatus(Integer id, OrderStatus status);
 }

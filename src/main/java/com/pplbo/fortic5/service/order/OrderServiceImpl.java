@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findOrderWaiting(User user) {
         List<Order> orders = new ArrayList<>(user.getProducts().size());
 
-        for(Product product : productService.findBySeller(user)) {
+        for (Product product : productService.findBySeller(user)) {
             orderRepository.findByProduct(product)
                     .stream()
                     .filter(order -> order.getStatus().equals(OrderStatus.WAITING))
@@ -53,5 +53,26 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return orders;
+    }
+
+    @Override
+    public List<Order> findOrderConfirmed(User user) {
+        List<Order> orders = new ArrayList<>(user.getProducts().size());
+
+        for (Product product : productService.findBySeller(user)) {
+            orderRepository.findByProduct(product)
+                    .stream()
+                    .filter(order -> order.getStatus().equals(OrderStatus.CONFIRMED))
+                    .forEach(orders::add);
+        }
+
+        return orders;
+    }
+
+    @Override
+    public void updateStatus(Integer id, OrderStatus status) {
+        var order = orderRepository.findById(id).orElseThrow();
+        order.setStatus(status);
+        orderRepository.save(order);
     }
 }

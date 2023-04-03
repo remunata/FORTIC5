@@ -4,42 +4,24 @@ import com.pplbo.fortic5.model.product.Category;
 import com.pplbo.fortic5.model.product.Kondisi;
 import com.pplbo.fortic5.model.product.Product;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Stream;
-
 import static com.pplbo.fortic5.utilities.NumberFormatter.getCurrencyFormat;
 
 public class ProductResponse {
 
-    private static final String IMAGE_PATH = System.getProperty("user.dir")
-            + "/src/main/resources/static/assets/products/";
-
     private final Product product;
-    private List<Path> paths;
+    private final String imageUrl;
 
-    public ProductResponse(Product product) {
+    public ProductResponse(Product product, String imageUrl) {
         this.product = product;
-
-        try (Stream<Path> pathStream = Files.walk(Paths.get(IMAGE_PATH + product.getId()))) {
-            paths = pathStream
-                    .filter(Files::isRegularFile)
-                    .toList();
-        } catch (IOException exception) {
-            System.out.println(exception.getMessage());
-        }
+        this.imageUrl = imageUrl;
     }
 
     public Product getProduct() {
         return product;
     }
 
-    public String getMainImage() {
-        String result = paths.get(0).toString().substring(System.getProperty("user.dir").length() + 26);
-        return result;
+    public String getImage() {
+        return imageUrl;
     }
 
     public Integer getId() {
@@ -76,9 +58,5 @@ public class ProductResponse {
 
     public Category getCategory() {
         return product.getCategory();
-    }
-
-    public Integer getTotalOrders() {
-        return product.getOrders().size();
     }
 }

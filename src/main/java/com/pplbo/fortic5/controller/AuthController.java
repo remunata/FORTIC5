@@ -1,10 +1,8 @@
 package com.pplbo.fortic5.controller;
 
 import com.pplbo.fortic5.model.request.RegisterRequest;
-import com.pplbo.fortic5.model.user.User;
 import com.pplbo.fortic5.service.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,28 +17,23 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping("/register")
     public String registerPage(Model model) {
         model.addAttribute("user", new RegisterRequest());
-        return "register";
+        return "auth/register";
     }
 
     @PostMapping("/register")
-    public String registration(
-            @ModelAttribute("user") RegisterRequest request,
-            Model model
-    ) {
-
+    public String registration(@ModelAttribute("user") RegisterRequest request, Model model) {
         try {
-            userService.findByUsername(request.getUsername());
-            model.addAttribute("error", "username telah digunakan");
-            return "register";
-        } catch (UsernameNotFoundException exception) {
             userService.register(request);
-            return "redirect:/";
+            return "redirect:/login";
+        } catch (Exception exception) {
+            model.addAttribute("error", exception.getMessage());
+            return "auth/register";
         }
     }
 }

@@ -1,16 +1,13 @@
 package com.pplbo.fortic5.service.image;
 
-import jakarta.annotation.Resource;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.nio.file.Path;
-import java.util.stream.Stream;
 
 public interface ImageStorageService {
 
     void init();
 
-    void save(MultipartFile file, Integer id);
+    void save(MultipartFile file, Integer id, String fileName);
 
-    Stream<Path> loadImages(Integer id);
+    Resource loadImage(String fileName);
 }
