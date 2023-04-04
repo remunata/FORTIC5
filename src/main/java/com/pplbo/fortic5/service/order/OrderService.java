@@ -13,9 +13,11 @@ public interface OrderService {
 
     Order findById(Integer id);
 
-    List<Order> findOrderWaiting(User user);
+    List<Order> findOrderByStatus(User user, OrderStatus status);
 
-    List<Order> findOrderConfirmed(User user);
+    List<Order> findOrderHistory(User user, OrderStatus status);
 
     void updateStatus(Integer id, OrderStatus status);
+
+    boolean deleteById(Integer id);
 }

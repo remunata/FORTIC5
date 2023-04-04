@@ -42,13 +42,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findOrderWaiting(User user) {
+    public List<Order> findOrderByStatus(User user, OrderStatus status) {
         List<Order> orders = new ArrayList<>(user.getProducts().size());
 
         for (Product product : productService.findBySeller(user)) {
             orderRepository.findByProduct(product)
                     .stream()
-                    .filter(order -> order.getStatus().equals(OrderStatus.WAITING))
+                    .filter(order -> order.getStatus().equals(status))
                     .forEach(orders::add);
         }
 
@@ -56,17 +56,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findOrderConfirmed(User user) {
-        List<Order> orders = new ArrayList<>(user.getProducts().size());
-
-        for (Product product : productService.findBySeller(user)) {
-            orderRepository.findByProduct(product)
-                    .stream()
-                    .filter(order -> order.getStatus().equals(OrderStatus.CONFIRMED))
-                    .forEach(orders::add);
-        }
-
-        return orders;
+    public List<Order> findOrderHistory(User user, OrderStatus status) {
+        return orderRepository.findByCustomer(user).stream()
+                .filter(order -> order.getStatus().equals(status))
+                .toList();
     }
 
     @Override
@@ -74,5 +67,11 @@ public class OrderServiceImpl implements OrderService {
         var order = orderRepository.findById(id).orElseThrow();
         order.setStatus(status);
         orderRepository.save(order);
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        orderRepository.deleteById(id);
+        return true;
     }
 }

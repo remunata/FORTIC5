@@ -3,9 +3,9 @@
         <div>
             <a class="cursor-pointer" th:href="@{/}"><img class="h-8" th:src="@{/assets/images/logo.svg}"></a>
         </div>
-        <form action="xxxx" method="post">
+        <form th:action="@{/product}" method="post">
             <div class="bg-white rounded-full">
-                <input class="rounded-full p-1 px-3 w-96 h-8 focus:outline-none" type="text"
+                <input class="rounded-full p-1 px-3 w-96 h-8 focus:outline-none" type="text" name="name" id="name"
                        placeholder="Cari produk...">
                 <button class="bg-cpt21 rounded-full p-1 px-7 h-8 font-medium text-white" type="submit">Cari</button>
             </div>

@@ -42,11 +42,14 @@ public class SellerController {
     public String orderList(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);
 
-        List<OrderResponse> ordersWaiting = mapToOrderResponses(orderService.findOrderWaiting(user));
+        var ordersWaiting = mapToOrderResponses(orderService.findOrderByStatus(user, OrderStatus.WAITING));
         model.addAttribute("ordersWaiting", ordersWaiting);
 
-        List<OrderResponse> ordersConfirmed = mapToOrderResponses(orderService.findOrderConfirmed(user));
+        var ordersConfirmed = mapToOrderResponses(orderService.findOrderByStatus(user, OrderStatus.CONFIRMED));
         model.addAttribute("ordersConfirmed", ordersConfirmed);
+
+        var ordersCanceled = mapToOrderResponses(orderService.findOrderByStatus(user, OrderStatus.CANCELED));
+        model.addAttribute("ordersCanceled", ordersCanceled);
 
         return "seller/order_list";
     }
@@ -97,7 +100,7 @@ public class SellerController {
         return "seller/product_preview";
     }
 
-    private List<OrderResponse> mapToOrderResponses(List<Order> orders) {
+    static List<OrderResponse> mapToOrderResponses(List<Order> orders) {
         return orders.stream()
                 .map(order -> new OrderResponse(order, mapToProductResponse(order.getProduct())))
                 .toList();

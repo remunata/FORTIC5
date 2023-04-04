@@ -9,9 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
@@ -22,6 +20,18 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+
+    @PostMapping
+    public String searchProduct(
+            @RequestParam("name") String name,
+            @AuthenticationPrincipal User user,
+            Model model
+    ) {
+        var productResponses = mapToProductResponses(productService.searchByName(name));
+        model.addAttribute("products", productResponses);
+        model.addAttribute("user", user);
+        return "customer/home";
+    }
 
     @GetMapping("/{id}")
     public String productDetail(

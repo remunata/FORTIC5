@@ -60,4 +60,11 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findBySeller(User user) {
         return productRepository.findBySeller(user);
     }
+
+    @Override
+    public List<Product> searchByName(String productName) {
+        return productRepository.findAll().stream()
+                .filter(product -> product.getName().toLowerCase().contains(productName.toLowerCase()))
+                .toList();
+    }
 }

@@ -17,4 +17,6 @@ public interface ProductService {
     void saveAll(List<Product> products);
 
     List<Product> findBySeller(User user);
+
+    List<Product> searchByName(String productName);
 }
