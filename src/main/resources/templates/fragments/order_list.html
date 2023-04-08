@@ -1,0 +1,126 @@
+<div th:fragment="orders (type)">
+<div class="">
+    <div class="border-b border-secondary mb-4">
+        <ul class="flex flex-wrap -mb-px" id="composerEras" data-tabs-toggle="#composerErasContent" role="tablist">
+            <li class="flex-auto text-center" role="presentation">
+                <button class="inline-block text-tertiary hover:text-quaternary hover:border p-4 font-medium text-center border-transparent border-b-2" id="renaissance-tab" data-tabs-target="#renaissance" type="button" role="tab" aria-controls="renaissance" aria-selected="true">Waiting</button>
+            </li>
+            <li class="flex-auto text-center" role="presentation">
+                <button class="inline-block text-tertiary hover:text-quaternary hover:border p-4 font-medium text-center border-transparent border-b-2" id="baroque-tab" data-tabs-target="#baroque" type="button" role="tab" aria-controls="baroque" aria-selected="false">Confirmed</button>
+            </li>
+            <li class="flex-auto text-center" role="presentation">
+                <button class="inline-block text-tertiary hover:text-quaternary hover:border p-4 font-medium text-center border-transparent border-b-2" id="classical-tab" data-tabs-target="#classical" type="button" role="tab" aria-controls="classical" aria-selected="false">Cancelled</button>
+            </li>
+        </ul>
+    </div>
+    <div id="composerErasContent">
+        <div class="p-2" id="renaissance" role="tabpanel" aria-labelledby="renaissance-tab">
+            <h2 class="text-xl font-bold my-3">Menunggu Konfirmasi</h2>
+            <table class="w-full">
+                <thead>
+                <tr class="border-b-2 border-black/25">
+                    <th class="w-3/12 pb-1.5 text-left">Product</th>
+                    <th class="w-2/12">Amount</th>
+                    <th class="w-2/12">Price</th>
+                    <th class="w-2/12">Total</th>
+                    <th class="w-2/12">Note</th>
+                    <th class="w-1/12">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${ordersWaiting.isEmpty()}">
+                    <td class="font-medium text-lg">Belom ada pesanan ~</td>
+                </tr>
+                <th:block th:each="order : ${ordersWaiting}">
+                    <tr class="border-b-2 border-black/25"
+                        th:with="total = ${order.order.quantity * order.product.product.price}">
+                        <td class="flex flex-row items-center py-2">
+                            <img class="h-16 object-cover mr-3" th:src="${order.product.image}">
+                            <p th:text="${order.product.name}"></p>
+                        </td>
+                        <td class="text-center" th:text="${order.order.quantity}">1</td>
+                        <td class="text-center" th:text="${order.product.price}"></td>
+                        <td class="text-center" th:text="|Rp ${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA')}|"></td>
+                        <td th:text="${order.order.note}"></td>
+                        <td class="text-center">
+                            <form th:action="@{/history}" method="post">
+                                <input type="hidden" name="id" th:value="${order.order.id}">
+                                <input type="submit" name="confirm" value="Confirm" th:if="${type == 'seller'}"
+                                       class="mb-2 text-md font-medium text-white rounded-sm bg-cpt21 py-0.5 w-28 cursor-pointer shadow-md duration-150 hover:bg-cpt21/75 hover:text-white hover:shadow-none">
+                                <input type="submit" name="cancel" value="Cancel"
+                                       class="text-md font-medium text-white rounded-sm bg-error py-0.5 w-28 cursor-pointer shadow-md duration-150 hover:bg-error/75">
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+        <div class="p-2 hidden" id="baroque" role="tabpanel" aria-labelledby="baroque-tab">
+            <h2 class="text-xl font-bold py-3">Dikonfirmasi</h2>
+            <table class="w-full">
+                <thead>
+                <tr class="border-b-2 border-black/25">
+                    <th class="w-2/6 pb-1.5 text-left">Product</th>
+                    <th class="w-1/6">Amount</th>
+                    <th class="w-1/6">Price</th>
+                    <th class="w-1/6">Total</th>
+                    <th class="w-1/6">Note</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${ordersConfirmed.isEmpty()}">
+                    <td class="font-medium text-lg">Belom ada pesanan ~</td>
+                </tr>
+                <th:block th:each="order : ${ordersConfirmed}">
+                    <tr class="border-b-2 border-black/25"
+                        th:with="total = ${order.order.quantity * order.product.product.price}">
+                        <td class="flex flex-row items-center py-2">
+                            <img class="h-16 object-cover mr-3" th:src="${order.product.image}">
+                            <p th:text="${order.product.name}"></p>
+                        </td>
+                        <td class="text-center" th:text="${order.order.quantity}">1</td>
+                        <td class="text-center" th:text="${order.product.price}"></td>
+                        <td class="text-center" th:text="|Rp ${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA')}|"></td>
+                        <td th:text="${order.order.note}"></td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+        <div class="p-2 hidden" id="classical" role="tabpanel" aria-labelledby="classical-tab">
+            <h2 class="text-xl font-bold py-3">Dibatalkan</h2>
+            <table class="w-full">
+                <thead>
+                <tr class="border-b-2 border-black/25">
+                    <th class="w-2/6 pb-1.5 text-left">Product</th>
+                    <th class="w-1/6">Amount</th>
+                    <th class="w-1/6">Price</th>
+                    <th class="w-1/6">Total</th>
+                    <th class="w-1/6">Note</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${ordersConfirmed.isEmpty()}">
+                    <td class="font-medium text-lg">Belom ada pesanan ~</td>
+                </tr>
+                <th:block th:each="order : ${ordersCanceled}">
+                    <tr class="border-b-2 border-black/25"
+                        th:with="total = ${order.order.quantity * order.product.product.price}">
+                        <td class="flex flex-row items-center py-2">
+                            <img class="h-16 object-cover mr-3" th:src="${order.product.image}">
+                            <p th:text="${order.product.name}"></p>
+                        </td>
+                        <td class="text-center" th:text="${order.order.quantity}">1</td>
+                        <td class="text-center" th:text="${order.product.price}"></td>
+                        <td class="text-center" th:text="|Rp ${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA')}|"></td>
+                        <td th:text="${order.order.note}"></td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.bundle.js"></script>
+</div>

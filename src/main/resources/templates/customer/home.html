@@ -2,35 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>FORTIC5</title>
-    <link rel="stylesheet" th:href="@{/styles/style.dev.tailwind.css}">
-</head>
+<head th:replace="fragments/components :: headFragment (pageTitle='FORTIC5')"></head>
 <body>
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/header :: header (type='customer')"></div>
 <div class="my-16 mx-32 grid grid-rows-1 gap-10">
     <div>
         <h1 class="text-cpt21 font-bold text-xl">Rekomendasi Produk</h1>
     </div>
-    <div class="grid grid-cols-product gap-10">
-        <th:block th:each="product : ${products}">
-            <div class="w-48 p-3 border border-cpt14 rounded-xl hover:shadow-lg duration-100">
-                <div class="grid grid-rows-1 gap-2">
-                    <div class="h-44">
-                        <img class="h-full w-full object-cover rounded-lg" th:src="${product.image}"
-                             th:alt="${product.name}">
-                    </div>
-                    <div class="mx-1 grid grid-rows-1 gap-2">
-                        <div>
-                            <a class="font-medium" th:href="|/product/${product.id}|" th:text="${product.name}"></a>
-                            <p class="font-medium text-cpt13" th:text="${product.price}"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </th:block>
-    </div>
+    <div th:replace="fragments/components :: productList (type='customer')"></div>
 </div>
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

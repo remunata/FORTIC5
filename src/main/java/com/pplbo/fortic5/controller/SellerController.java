@@ -38,6 +38,20 @@ public class SellerController {
         return "seller/dashboard";
     }
 
+    @PostMapping("/product")
+    public String searchProduct(
+            @RequestParam("name") String name,
+            @AuthenticationPrincipal User user,
+            Model model
+    ) {
+        var productResponses = mapToProductResponses(productService.findBySeller(user).stream()
+                .filter(product -> product.getName().toLowerCase().contains(name.toLowerCase()))
+                .toList());
+        model.addAttribute("products", productResponses);
+        model.addAttribute("user", user);
+        return "seller/dashboard";
+    }
+
     @GetMapping("/order")
     public String orderList(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);

@@ -2,23 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout</title>
-  <link rel="stylesheet" th:href="@{/styles/style.dev.tailwind.css}">
-</head>
+<head th:replace="fragments/components :: headFragment (pageTitle='Checkout')"></head>
 <body class="font-secondary">
-  <div class="relative w-full px-20 py-10" th:with="total=${product.product.price * checkoutRequest.quantity}">
-    <div>
-      <span>
-        <a class="flex flex-row items-center font-bold cursor-pointer" th:href="|/product/${product.id}|">
-          <img class="h-6 mr-3" th:src="@{/assets/images/left-arrow.svg}" alt="back">
-          Kembali
-        </a>
-      </span>
-    </div>
+  <div th:replace="fragments/header :: header (type='customer')"></div>
+  <div class="relative w-full px-20 py-10" th:with="total=${product.product.price * checkoutRequest.quantity}, href=|/product/${product.id}|">
+    <div th:replace="fragments/components :: backArrow (link=${href})"></div>
     <div class="my-10">
       <h1 class="font-bold text-5xl">
         Bayar
@@ -126,5 +114,6 @@
       </div>
     </div>
   </div>
+  <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

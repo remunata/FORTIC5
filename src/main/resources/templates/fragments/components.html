@@ -1,0 +1,37 @@
+<head th:fragment="headFragment (pageTitle)">
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">FORTIC5</title>
+    <link rel="stylesheet" th:href="@{/styles/style.dev.tailwind.css}">
+    <script type="text/javascript" th:src="@{/scripts/script.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+
+<div th:fragment="backArrow (link)">
+    <a class="flex flex-row items-center font-bold cursor-pointer" th:href="${link}">
+      <img class="h-6 mr-3" th:src="@{/assets/images/left-arrow.svg}" alt="back">
+      Kembali
+    </a>
+</div>
+
+<div class="grid grid-cols-product gap-10" th:fragment="productList (type)">
+  <th:block th:each="product : ${products}">
+    <div class="w-48 p-3 border border-cpt14 rounded-xl hover:shadow-lg duration-100">
+      <div class="flex flex-col justify-end gap-y-2 h-full">
+        <div class="h-44">
+          <img class="h-full w-full object-cover rounded-lg" th:src="${product.image}" th:alt="${product.name}">
+        </div>
+        <div class="mx-1 flex flex-col justify-between h-full">
+          <div class="w-full">
+            <a class="font-medium w-full" th:href="${type=='seller'}?|/dashboard/product/${product.id}|:|/product/${product.id}|" th:text="${product.name}"></a>
+            <p class="font-medium text-cpt13 w-full" th:text="${product.price}"></p>
+          </div>
+          <div class="w-full flex justify-end" th:if="${type=='seller'}">
+            <a th:href="|/dashboard/edit/${product.id}|">
+              <img class="h-8" th:src="@{/assets/images/edit.svg}" th:alt="edit">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </th:block>
+</div>

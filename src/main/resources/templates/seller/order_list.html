@@ -2,13 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Confirm</title>
-    <link rel="stylesheet" th:href="@{/styles/style.dev.tailwind.css}">
-</head>
+<head th:replace="fragments/components :: headFragment (pageTitle='Orders')"></head>
 <body>
-<div th:replace="fragments/header_dashboard :: header"></div>
+<div th:replace="fragments/header :: header (type='seller')"></div>
 <div class="relative w-full px-36 py-10">
     <div>
       <span>
@@ -18,119 +14,9 @@
         </a>
       </span>
     </div>
-    <div class="mt-10">
-        <h1 class="text-4xl font-bold">Pesanan</h1>
-    </div>
-    <div class="mt-5 border-b-2 border-black/25 py-1 mb-1">
-        <h2 class="text-xl font-bold">Menunggu Konfirmasi</h2>
-    </div>
-    <table class="w-full">
-        <thead>
-        <tr class="border-b-2 border-black/25">
-            <th class="w-3/12 pb-1.5 text-left">Product</th>
-            <th class="w-2/12">Amount</th>
-            <th class="w-2/12">Price</th>
-            <th class="w-2/12">Total</th>
-            <th class="w-2/12">Note</th>
-            <th class="w-1/12">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${ordersWaiting.isEmpty()}">
-            <td class="font-medium text-lg">Belom ada pesanan ~</td>
-        </tr>
-        <th:block th:each="order : ${ordersWaiting}">
-            <tr class="border-b-2 border-black/25"
-                th:with="total = ${order.order.quantity * order.product.product.price}">
-                <td class="flex flex-row items-center py-2">
-                    <img class="h-16 object-cover mr-3" th:src="${order.product.image}">
-                    <p th:text="${order.product.name}"></p>
-                </td>
-                <td class="text-center" th:text="${order.order.quantity}">1</td>
-                <td class="text-center" th:text="${order.product.price}"></td>
-                <td class="text-center" th:text="|Rp ${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA')}|"></td>
-                <td th:text="${order.order.note}"></td>
-                <td class="text-center">
-                    <form th:action="@{/dashboard/order}" method="post">
-                        <input type="hidden" name="id" th:value="${order.order.id}">
-                        <input type="submit" name="confirm" value="Confirm"
-                               class="mb-2 text-md font-medium text-white rounded-sm bg-cpt21 py-0.5 w-28 cursor-pointer shadow-md duration-150 hover:bg-cpt21/75 hover:text-white hover:shadow-none">
-                        <input type="submit" name="cancel" value="Cancel"
-                               class="text-md font-medium text-white rounded-sm bg-error py-0.5 w-28 cursor-pointer shadow-md duration-150 hover:bg-error/75">
-                    </form>
-                </td>
-            </tr>
-        </th:block>
-        </tbody>
-    </table>
-
-    <div class="mt-5 border-b-2 border-black/25 py-1 mb-1">
-        <h2 class="text-xl font-bold">Dikonfirmasi</h2>
-    </div>
-
-    <table class="w-full">
-        <thead>
-        <tr class="border-b-2 border-black/25">
-            <th class="w-2/6 pb-1.5 text-left">Product</th>
-            <th class="w-1/6">Amount</th>
-            <th class="w-1/6">Price</th>
-            <th class="w-1/6">Total</th>
-            <th class="w-1/6">Note</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${ordersConfirmed.isEmpty()}">
-            <td class="font-medium text-lg">Belom ada pesanan ~</td>
-        </tr>
-        <th:block th:each="order : ${ordersConfirmed}">
-            <tr class="border-b-2 border-black/25"
-                th:with="total = ${order.order.quantity * order.product.product.price}">
-                <td class="flex flex-row items-center py-2">
-                    <img class="h-16 object-cover mr-3" th:src="${order.product.image}">
-                    <p th:text="${order.product.name}"></p>
-                </td>
-                <td class="text-center" th:text="${order.order.quantity}">1</td>
-                <td class="text-center" th:text="${order.product.price}"></td>
-                <td class="text-center" th:text="|Rp ${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA')}|"></td>
-                <td th:text="${order.order.note}"></td>
-            </tr>
-        </th:block>
-        </tbody>
-    </table>
-
-    <div class="mt-5 border-b-2 border-black/25 py-1 mb-1">
-        <h2 class="text-xl font-bold">Dibatalkan</h2>
-    </div>
-
-    <table class="w-full">
-        <thead>
-        <tr class="border-b-2 border-black/25">
-            <th class="w-2/6 pb-1.5 text-left">Product</th>
-            <th class="w-1/6">Amount</th>
-            <th class="w-1/6">Price</th>
-            <th class="w-1/6">Total</th>
-            <th class="w-1/6">Note</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${ordersConfirmed.isEmpty()}">
-            <td class="font-medium text-lg">Belom ada pesanan ~</td>
-        </tr>
-        <th:block th:each="order : ${ordersCanceled}">
-            <tr class="border-b-2 border-black/25"
-                th:with="total = ${order.order.quantity * order.product.product.price}">
-                <td class="flex flex-row items-center py-2">
-                    <img class="h-16 object-cover mr-3" th:src="${order.product.image}">
-                    <p th:text="${order.product.name}"></p>
-                </td>
-                <td class="text-center" th:text="${order.order.quantity}">1</td>
-                <td class="text-center" th:text="${order.product.price}"></td>
-                <td class="text-center" th:text="|Rp ${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA')}|"></td>
-                <td th:text="${order.order.note}"></td>
-            </tr>
-        </th:block>
-        </tbody>
-    </table>
+    <h1 class="text-4xl font-bold my-5">Pesanan</h1>
+    <div th:replace="fragments/order_list :: orders (type='seller')"></div>
 </div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

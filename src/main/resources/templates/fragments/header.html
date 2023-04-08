@@ -1,7 +1,7 @@
-<header class="relative w-full py-4 bg-cpt12" th:fragment="header">
+<header class="sticky z-20 top-0 left-0 w-full py-4 bg-cpt12" th:fragment="header (type)">
     <div class="mx-20 flex flex-row justify-around items-center">
         <div>
-            <a class="cursor-pointer" th:href="@{/}"><img class="h-8" th:src="@{/assets/images/logo.svg}"></a>
+            <a class="cursor-pointer" th:href="${type == 'customer' ? '/' : '/dashboard'}"><img class="h-8" th:src="@{/assets/images/logo.svg}"></a>
         </div>
         <form th:action="@{/product}" method="post">
             <div class="bg-white rounded-full">
@@ -10,10 +10,15 @@
                 <button class="bg-cpt21 rounded-full p-1 px-7 h-8 font-medium text-white" type="submit">Cari</button>
             </div>
         </form>
-        <div class="flex flex-row items-center">
-            <a th:href="@{/history}"><img class="h-8 mx-4" th:src="@{/assets/images/history.svg}" alt="history"></a>
+        <div class="flex flex-row items-center" th:switch="${type}">
             <a th:href="@{/chat}"><img class="h-8 mx-4" th:src="@{/assets/images/chat.svg}" alt="chat"></a>
-            <a th:href="@{/cart}"><img class="h-8 mx-4 mr-8" th:src="@{/assets/images/cart.svg}" alt="cart"></a>
+            <th:block th:case="'customer'">
+                <a th:href="@{/history}"><img class="h-8 mx-4" th:src="@{/assets/images/history.svg}" alt="history"></a>
+                <a th:href="@{/cart}"><img class="h-8 mx-4 mr-8" th:src="@{/assets/images/cart.svg}" alt="cart"></a>
+            </th:block>
+            <th:block th:case="'seller'">
+                <a th:href="@{/dashboard/order}"><img class="h-8 mx-4 mr-8" th:src="@{/assets/images/product.svg}" alt="cart"></a>
+            </th:block>
             <a class="flex flex-row items-center" th:href="@{/logout}">
                     <span class="h-10 mr-2 flex items-center">
                         <img class="object-fill h-6" th:src="@{/assets/images/profile.svg}" alt="profile-picture">
