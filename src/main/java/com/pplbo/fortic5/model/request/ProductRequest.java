@@ -1,6 +1,7 @@
 package com.pplbo.fortic5.model.request;
 
 import com.pplbo.fortic5.model.product.Category;
+import com.pplbo.fortic5.model.product.Kondisi;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,9 +20,17 @@ public class ProductRequest {
     @NonNull
     private Category category;
 
-    @NonNull
     private MultipartFile image;
 
     @NonNull
     private Integer price;
+
+    @NonNull
+    private Integer stock;
+
+    @NonNull
+    private String brand;
+
+    @NonNull
+    private Kondisi kondisi;
 }

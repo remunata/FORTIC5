@@ -40,15 +40,35 @@ public class ProductServiceImpl implements ProductService {
                 .category(request.getCategory())
                 .price(request.getPrice())
                 .seller(user)
-                .brand("Secret")
-                .stock(512)
+                .brand(request.getBrand())
+                .stock(request.getStock())
                 .rating(5)
-                .kondisi(Kondisi.BARU)
+                .kondisi(request.getKondisi())
                 .imageExtension(request.getImage().getOriginalFilename()
                         .substring(request.getImage().getOriginalFilename().lastIndexOf(".")))
                 .build();
 
         return productRepository.save(product);
+    }
+
+    @Override
+    public Product edit(ProductRequest request, Integer id) {
+        var product = findById(id);
+        product.setName(request.getName());
+        product.setDescription(request.getDescription());
+        product.setPrice(request.getPrice());
+        product.setCategory(request.getCategory());
+        product.setBrand(request.getBrand());
+        product.setKondisi(request.getKondisi());
+        product.setStock(request.getStock());
+
+        return productRepository.save(product);
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        productRepository.deleteById(id);
+        return true;
     }
 
     @Override

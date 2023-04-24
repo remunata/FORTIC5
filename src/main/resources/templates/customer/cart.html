@@ -5,5 +5,60 @@
 <head th:replace="fragments/components :: headFragment (pageTitle='Cart')"></head>
 <body>
     <div th:replace="fragments/header :: header (type='customer')"></div>
+    <div class="mx-20 my-10">
+        <div th:replace="fragments/components :: backArrow (link='/')"></div>
+        <form th:action="@{/checkout/cart}" method="post">
+        <div class="mx-5">
+            <h1 class="text-4xl font-bold my-5">Keranjang</h1>
+            <div class="flex flex-row items-start gap-x-10">
+                <div class="w-full">
+                    <div th:each="cart : ${carts}">
+                        <div class="border-b-2 border-black/25 pb-1.5 mb-1.5">
+                            <h3 class="font-medium text-md" th:text="${cart.key.fullName}">Fluffyreiie</h3>
+                            <p class="text-sm" th:text="${cart.key.address}">Kota Bekasi</p>
+                        </div>
+                        <table class="w-full mb-10">
+                            <thead>
+                            <tr class="border-b-2 border-black/25">
+                                <th class="w-3/12 pb-1.5 text-left">Product</th>
+                                <th class="w-2/12">Amount</th>
+                                <th class="w-2/12">Price</th>
+                                <th class="w-2/12">Total</th>
+                                <th class="w-2/12">Note</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="order : ${cart.value}">
+                                <tr class="border-b-2 border-black/25"
+                                    th:with="total = ${order.order.quantity * order.product.product.price}">
+                                    <td class="flex flex-row items-center py-2">
+                                        <input type="checkbox" name="orders" th:value="${order.order.id}" class="mr-2" />
+                                        <img class="h-16 object-cover mr-3" th:src="${order.product.image}">
+                                        <p th:text="${order.product.name}" class="text-clip"></p>
+                                    </td>
+                                    <td class="text-center" th:text="${order.order.quantity}">1</td>
+                                    <td class="text-center" th:text="${order.product.price}"></td>
+                                    <td class="text-center" th:text="|Rp ${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA')}|"></td>
+                                    <td th:text="${order.order.note}"></td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="w-56 mt-20">
+                    <div class="w-full h-auto border border-black/25 rounded-xl grid grid-cols-1 px-4 py-3 gap-y-2.5">
+                        <div class="border-b-2 border-black/25 pb-3 mb-2">
+                            <h2 class="font-bold text-lg">Total Product</h2>
+                        </div>
+                        <div class="bg-cpt13"></div>
+                        <input type="submit" name="checkout" value="Checkout" class="text-md font-bold rounded-md bg-cpt12 py-0.5 cursor-pointer shadow-md duration-150 hover:bg-cpt13 hover:text-white hover:shadow-none">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -14,6 +14,10 @@ public interface ProductService {
 
     Product save(ProductRequest request, User user);
 
+    Product edit(ProductRequest request, Integer id);
+
+    boolean deleteById(Integer id);
+
     void saveAll(List<Product> products);
 
     List<Product> findBySeller(User user);

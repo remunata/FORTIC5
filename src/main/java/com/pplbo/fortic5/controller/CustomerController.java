@@ -9,11 +9,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import static com.pplbo.fortic5.controller.ProductController.mapToProductResponses;
-import static com.pplbo.fortic5.controller.SellerController.mapToOrderResponses;
+import static com.pplbo.fortic5.utilities.Mapper.mapToOrderResponses;
+import static com.pplbo.fortic5.utilities.Mapper.mapToProductResponses;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,6 +30,8 @@ public class CustomerController {
 
     @GetMapping("/cart")
     public String cart(@AuthenticationPrincipal User user, Model model) {
+        var carts = orderService.getCart(user);
+        model.addAttribute("carts", carts);
         model.addAttribute("user", user);
         return "customer/cart";
     }
@@ -43,14 +43,6 @@ public class CustomerController {
         model.addAttribute("ordersWaiting", ordersWaiting);
         var ordersConfirmed = mapToOrderResponses(orderService.findOrderHistory(user, OrderStatus.CONFIRMED));
         model.addAttribute("ordersConfirmed", ordersConfirmed);
-        var ordersCanceled = mapToOrderResponses(orderService.findOrderHistory(user, OrderStatus.CANCELED));
-        model.addAttribute("ordersCanceled", ordersCanceled);
         return "customer/order_list";
-    }
-
-    @PostMapping("/history")
-    public String deleteOrder(@RequestParam("id") Integer id) {
-        orderService.deleteById(id);
-        return "redirect:/history";
     }
 }

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       lang="en">
-<head th:replace="fragments/components :: headFragment (pageTitle='FORTIC%')"></head>
+<head th:replace="fragments/components :: headFragment (pageTitle='FORTIC5')"></head>
 <body>
 <div th:replace="fragments/header :: header (type='seller')"></div>
 <div class="my-16 mx-32 grid grid-rows-1 gap-y-5">
@@ -17,5 +17,6 @@
   </div>
   <div th:replace="fragments/components :: productList (type='seller')"></div>
 </div>
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

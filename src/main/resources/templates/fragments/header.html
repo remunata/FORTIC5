@@ -19,12 +19,35 @@
             <th:block th:case="'seller'">
                 <a th:href="@{/dashboard/order}"><img class="h-8 mx-4 mr-8" th:src="@{/assets/images/product.svg}" alt="cart"></a>
             </th:block>
-            <a class="flex flex-row items-center" th:href="@{/logout}">
-                    <span class="h-10 mr-2 flex items-center">
-                        <img class="object-fill h-6" th:src="@{/assets/images/profile.svg}" alt="profile-picture">
-                    </span>
-                <p th:text="${user.username}"></p>
-            </a>
+            <div class="flex justify-center items-center">
+                <div x-data="{ open: false }" class="flex justify-center items-center">
+                    <div @click="open = !open" class="cursor-pointer relative border-b-4 border-transparent py-3" :class="{'border-cpt11 transform transition duration-300 ': open}" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100">
+                        <img class="h-8" th:src="@{/assets/images/user.svg}" />
+                        <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute px-5 py-3 bg-cpt11 rounded-lg shadow border mt-5">
+                            <ul class="space-y-3">
+                                <li class="font-medium">
+                                    <a href="#" class="flex items-center transform transition-colors duration-200 border-r-4 border-transparent hover:border-cpt14">
+                                        <div class="mr-3">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                        </div>
+                                        <span th:text="${user.username}"></span>
+                                    </a>
+                                </li>
+                                <hr class="border-gray-700">
+                                <li class="font-medium">
+                                    <a th:href="@{/logout}" class="flex items-center transform transition-colors duration-200 border-r-4 border-transparent pr-2 hover:border-error">
+                                    <div class="mr-3 text-red-600">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                                    </div>
+                                    Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
         </div>
     </div>
 </header>

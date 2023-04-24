@@ -3,9 +3,11 @@ package com.pplbo.fortic5.service.order;
 import com.pplbo.fortic5.model.order.Order;
 import com.pplbo.fortic5.model.order.OrderStatus;
 import com.pplbo.fortic5.model.request.CheckoutRequest;
+import com.pplbo.fortic5.model.response.OrderResponse;
 import com.pplbo.fortic5.model.user.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
 
@@ -19,5 +21,7 @@ public interface OrderService {
 
     void updateStatus(Integer id, OrderStatus status);
 
-    boolean deleteById(Integer id);
+    Order addToCart(CheckoutRequest request, User user);
+
+    Map<User, List<OrderResponse>> getCart(User user);
 }

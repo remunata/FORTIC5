@@ -1,10 +1,8 @@
 package com.pplbo.fortic5.controller;
 
-import com.pplbo.fortic5.model.order.Order;
 import com.pplbo.fortic5.model.order.OrderStatus;
 import com.pplbo.fortic5.model.request.CheckoutRequest;
 import com.pplbo.fortic5.model.request.ProductRequest;
-import com.pplbo.fortic5.model.response.OrderResponse;
 import com.pplbo.fortic5.model.response.ProductResponse;
 import com.pplbo.fortic5.model.user.User;
 import com.pplbo.fortic5.service.image.ImageStorageService;
@@ -18,8 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.pplbo.fortic5.controller.ProductController.mapToProductResponse;
-import static com.pplbo.fortic5.controller.ProductController.mapToProductResponses;
+import static com.pplbo.fortic5.utilities.Mapper.*;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -62,21 +59,12 @@ public class SellerController {
         var ordersConfirmed = mapToOrderResponses(orderService.findOrderByStatus(user, OrderStatus.CONFIRMED));
         model.addAttribute("ordersConfirmed", ordersConfirmed);
 
-        var ordersCanceled = mapToOrderResponses(orderService.findOrderByStatus(user, OrderStatus.CANCELED));
-        model.addAttribute("ordersCanceled", ordersCanceled);
-
         return "seller/order_list";
     }
 
-    @PostMapping(value = "/order", params = "confirm")
+    @PostMapping(value = "/order")
     public String confirmOrder(@RequestParam("id") Integer id) {
         orderService.updateStatus(id, OrderStatus.CONFIRMED);
-        return "redirect:/dashboard/order";
-    }
-
-    @PostMapping(value = "/order", params = "cancel")
-    public String cancelOrder(@RequestParam("id") Integer id) {
-        orderService.updateStatus(id, OrderStatus.CANCELED);
         return "redirect:/dashboard/order";
     }
 
@@ -88,16 +76,36 @@ public class SellerController {
     }
 
     @PostMapping("/add")
-    public String addProduct(
-            @AuthenticationPrincipal User user,
-            @ModelAttribute("request") ProductRequest request,
-            Model model
-    ) {
+    public String addProduct(@AuthenticationPrincipal User user, @ModelAttribute("request") ProductRequest request) {
         var product = productService.save(request, user);
         imageService.save(request.getImage(), product.getId(), product.getImageExtension());
+        return "redirect:/dashboard";
+    }
 
+    @GetMapping("/edit/{id}")
+    public String editProductForm(
+            @AuthenticationPrincipal User user,
+            @PathVariable Integer id,
+            Model model
+    ) {
+        var product = productService.findById(id);
+        var request = ProductRequest.builder()
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .category(product.getCategory())
+                .brand(product.getBrand())
+                .stock(product.getStock())
+                .kondisi(product.getKondisi())
+                .build();
+        model.addAttribute("request", request);
         model.addAttribute("user", user);
-        model.addAttribute("products", user.getProducts());
+        return "seller/edit_product";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editProduct(@PathVariable Integer id, @ModelAttribute("request") ProductRequest request) {
+        var product = productService.edit(request, id);
         return "redirect:/dashboard";
     }
 
@@ -114,9 +122,9 @@ public class SellerController {
         return "seller/product_preview";
     }
 
-    static List<OrderResponse> mapToOrderResponses(List<Order> orders) {
-        return orders.stream()
-                .map(order -> new OrderResponse(order, mapToProductResponse(order.getProduct())))
-                .toList();
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable Integer id) {
+        var del = productService.deleteById(id);
+        return "redirect:/dashboard";
     }
 }

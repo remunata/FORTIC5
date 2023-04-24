@@ -1,6 +1,5 @@
 package com.pplbo.fortic5.controller;
 
-import com.pplbo.fortic5.model.product.Product;
 import com.pplbo.fortic5.model.request.CheckoutRequest;
 import com.pplbo.fortic5.model.response.ProductResponse;
 import com.pplbo.fortic5.model.user.User;
@@ -10,9 +9,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import java.util.List;
+import static com.pplbo.fortic5.utilities.Mapper.mapToProductResponse;
+import static com.pplbo.fortic5.utilities.Mapper.mapToProductResponses;
 
 @Controller
 @RequestMapping("/product")
@@ -44,19 +43,5 @@ public class ProductController {
         model.addAttribute("user", user);
         model.addAttribute("checkoutRequest", new CheckoutRequest());
         return "product/product";
-    }
-
-    static ProductResponse mapToProductResponse(Product product) {
-        String url = product.getId() + product.getImageExtension();
-        String imageUrl = MvcUriComponentsBuilder
-                .fromMethodName(ImageController.class, "getImage", url)
-                .build().toString();
-        return new ProductResponse(product, imageUrl);
-    }
-
-    static List<ProductResponse> mapToProductResponses(List<Product> products) {
-        return products.stream()
-                .map(ProductController::mapToProductResponse)
-                .toList();
     }
 }

@@ -1,0 +1,86 @@
+<table class="w-full border-separate border-spacing-5 bg-cpt12 rounded-lg shadow-lg" th:fragment="form">
+  <tr>
+    <td class="bg-cpt12 text-end align-top w-1/6">
+      <h3 class="mr-10 font-medium text-lg">Nama</h3>
+    </td>
+    <td class="w-full">
+      <input th:field="*{name}" type="text"
+             class="w-full p-2 border-2 appearance-none focus:outline-none" required>
+    </td>
+  </tr>
+  <tr>
+    <td class="bg-cpt12 text-end align-top">
+      <h3 class="mr-10 font-medium text-lg">Deskripsi</h3>
+    </td>
+    <td>
+      <textarea th:field="*{description}"
+                class="w-full h-40 p-2 border-2 focus:outline-none" required></textarea>
+    </td>
+  </tr>
+  <tr>
+    <td class="bg-cpt12 text-end align-top">
+      <h3 class="mr-10 font-medium text-lg">Kategori</h3>
+    </td>
+    <td>
+      <select th:field="*{category}" class="w-full border-2 p-2 focus:outline-none" required>
+        <option th:each="categoryOpt : ${T(com.pplbo.fortic5.model.product.Category).values()}"
+                th:value="${categoryOpt}" th:text="${categoryOpt.displayValue}"></option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="bg-cpt12 text-end align-top">
+      <h3 class="mr-10 font-medium text-lg">Gambar</h3>
+    </td>
+    <td>
+      <input th:field="*{image}" type="file" accept="image/jpeg, image/png, image/jpg" class="py-2" required>
+    </td>
+  </tr>
+  <tr>
+    <td class="bg-cpt12 text-end align-top">
+      <h3 class="mr-10 font-medium text-lg">Harga (Rp)</h3>
+    </td>
+    <td>
+      <input th:field="*{price}" type="number"
+             class="w-full border-2 p-2 appearance-none focus:outline-none" required>
+    </td>
+  </tr>
+  <tr>
+    <td class="bg-cpt12 text-end align-top">
+      <h3 class="mr-10 font-medium text-lg">Jumlah Stock</h3>
+    </td>
+    <td>
+      <input th:field="*{stock}" type="number"
+             class="w-full border-2 p-2 appearance-none focus:outline-none" required>
+    </td>
+  </tr>
+  <tr>
+    <td class="bg-cpt12 text-end align-top">
+      <h3 class="mr-10 font-medium text-lg">Nama Brand</h3>
+    </td>
+    <td>
+      <input th:field="*{brand}" type="text"
+             class="w-full border-2 p-2 appearance-none focus:outline-none" required>
+    </td>
+  </tr>
+  <tr>
+    <td class="bg-cpt12 text-end align-top">
+      <h3 class="mr-10 font-medium text-lg">Kondisi</h3>
+    </td>
+    <td>
+      <select th:field="*{kondisi}" class="w-full border-2 p-2 focus:outline-none" required>
+        <option th:each="kondisiOpt : ${T(com.pplbo.fortic5.model.product.Kondisi).values()}"
+                th:value="${kondisiOpt}" th:text="${kondisiOpt.displayValue}"></option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="flex flex-row justify-end gap-x-10">
+      <a th:href="@{/dashboard}" class="bg-cpt21 text-center text-white py-2 w-52 font-medium rounded-md cursor-pointer hover:bg-cpt21/75">Kembali</a>
+      <a th:if="${type == 'edit'}" th:href="|/dashboard/delete/${id}|" class="bg-cpt21 text-center text-white py-2 w-52 font-medium rounded-md cursor-pointer hover:bg-cpt21/75">Hapus Produk</a>
+      <input type="submit" value="Simpan & Upload"
+             class="bg-cpt21 text-white py-2 w-52 font-medium rounded-md cursor-pointer hover:bg-cpt21/75" required>
+    </td>
+  </tr>
+</table>
