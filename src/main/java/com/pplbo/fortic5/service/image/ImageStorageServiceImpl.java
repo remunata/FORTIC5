@@ -14,12 +14,13 @@ import java.nio.file.Paths;
 @Service
 public class ImageStorageServiceImpl implements ImageStorageService {
 
-    private final Path root = Paths.get("./uploads");
+    private final Path root = Paths.get(System.getProperty("user.dir") + "/uploads");
 
     @Override
     public void init() {
         try {
-            Files.createDirectory(root);
+            if(!Files.exists(root))
+                Files.createDirectory(root);
         } catch (IOException exception) {
             throw new RuntimeException("Could not initialize root folder");
         }
@@ -28,6 +29,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
     @Override
     public void save(MultipartFile file, Integer productId, String fileExtension) {
         try {
+            init();
             Files.copy(file.getInputStream(), this.root.resolve(productId + fileExtension));
         } catch (Exception exception) {
             throw new RuntimeException("Could not store the file. Error: " + exception.getMessage());
