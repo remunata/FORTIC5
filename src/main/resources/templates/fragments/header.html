@@ -11,7 +11,6 @@
             </div>
         </form>
         <div class="flex flex-row items-center" th:switch="${type}">
-            <a th:href="@{/chat}"><img class="h-8 mx-4" th:src="@{/assets/images/chat.svg}" alt="chat"></a>
             <th:block th:case="'customer'">
                 <a th:href="@{/history}"><img class="h-8 mx-4" th:src="@{/assets/images/history.svg}" alt="history"></a>
                 <a th:href="@{/cart}"><img class="h-8 mx-4 mr-8" th:src="@{/assets/images/cart.svg}" alt="cart"></a>

@@ -23,4 +23,6 @@ public interface ProductService {
     List<Product> findBySeller(User user);
 
     List<Product> searchByName(String productName);
+
+    List<Product> searchByName(String productName, User seller);
 }

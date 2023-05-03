@@ -1,6 +1,5 @@
 package com.pplbo.fortic5.service.product;
 
-import com.pplbo.fortic5.model.product.Kondisi;
 import com.pplbo.fortic5.model.product.Product;
 import com.pplbo.fortic5.model.request.ProductRequest;
 import com.pplbo.fortic5.model.user.User;
@@ -84,6 +83,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> searchByName(String productName) {
         return productRepository.findAll().stream()
+                .filter(product -> product.getName().toLowerCase().contains(productName.toLowerCase()))
+                .toList();
+    }
+
+    @Override
+    public List<Product> searchByName(String productName, User seller) {
+        return productRepository.findBySeller(seller).stream()
                 .filter(product -> product.getName().toLowerCase().contains(productName.toLowerCase()))
                 .toList();
     }
