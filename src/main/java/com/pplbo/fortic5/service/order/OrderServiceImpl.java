@@ -74,6 +74,12 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
     }
 
+    public void confirmOrder(Integer id) {
+        var product = orderRepository.findById(id).orElseThrow().getProduct();
+        product.setStock(product.getStock() - 1);
+        updateStatus(id, OrderStatus.CONFIRMED);
+    }
+
     @Override
     public Order addToCart(CheckoutRequest request, User user) {
         var order = Order.builder()

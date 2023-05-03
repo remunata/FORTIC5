@@ -64,7 +64,7 @@ public class SellerController {
 
     @PostMapping(value = "/order")
     public String confirmOrder(@RequestParam("id") Integer id) {
-        orderService.updateStatus(id, OrderStatus.CONFIRMED);
+        orderService.confirmOrder(id);
         return "redirect:/dashboard/order";
     }
 

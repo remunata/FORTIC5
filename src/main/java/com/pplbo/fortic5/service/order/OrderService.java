@@ -21,6 +21,8 @@ public interface OrderService {
 
     void updateStatus(Integer id, OrderStatus status);
 
+    void confirmOrder(Integer id);
+
     Order addToCart(CheckoutRequest request, User user);
 
     Map<User, List<OrderResponse>> getCart(User user);
